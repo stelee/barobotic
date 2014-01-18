@@ -18,6 +18,7 @@
 	setMeta("apple-mobile-web-app-capable","yes");
 	linkCSS("css/jquery.mobile.flatui.css");
 	//linkCSS("css/jquery.mobile.flatui.css");
+	linkCSS("css/flatui.theme.css")
 	linkCSS("css/app.css");
 	includeJS("jsWeb/jquery/jquery.js",
 		"cordova-current.js",
