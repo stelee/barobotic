@@ -1,7 +1,7 @@
 define(function(require,exports,module){
 	module.exports.onEnter=function()
 	{
-		$.mobile.activePage.css("height","110%")
+		$.mobile.activePage.css("height","100%")
 	}
 	module.exports.make=function(event)
 	{

@@ -1,4 +1,8 @@
 
+.ui-mobile, .ui-mobile body {
+	height: auto;
+}
+
 .left
 {
 	float: left;
