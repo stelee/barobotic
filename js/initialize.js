@@ -16,7 +16,6 @@
 	}
 	setMeta("viewport","width=device-width,initial-scale=1,user-scalable=no");
 	setMeta("apple-mobile-web-app-capable","yes");
-	linkCSS("css/jquery.mobile.flatui.css");
 	//linkCSS("css/jquery.mobile.flatui.css");
 	linkCSS("css/flatui.theme.css")
 	linkCSS("css/app.css");
@@ -34,7 +33,8 @@
 		"jsWeb/libs/base64.js",
 		"jsWeb/libs/base.data.js",
 		"jsWeb/libs/core.webnpm.js",
-		"js/app.js"
+		"js/app.js",
+		"jsWeb/libs/ext.jqm.ui.js"
 		);
 })();
 

@@ -2,23 +2,27 @@ Namespace.register("app");
 app.items=[
 	{
 		id:"menu_1",
-		url:"applications/sample/index.html",
-		name:"Menu 1"
+		url:"applications/make_cocktails/index.html",
+		name:"Make",
+		icon:"images/icons/png/Retina-Ready.png"
 	},
 	{
 		id:"menu_2",
 		url:"#",
-		name:"Menu 2"
+		name:"Fav",
+		icon:"images/icons/png/Pocket.png"
 	},
 	{
 		id:"menu_3",
-		url:"a#",
-		name:"Menu 3"
+		url:"#",
+		name:"Mix-up",
+		icon:"images/icons/png/Infinity-Loop.png"
 	},
 	{
 		id:"menu_4",
 		url:"#",
-		name:"Menu 4"
+		name:"Config",
+		icon:"images/icons/png/Pensils.png"
 	}
 ]
 
@@ -33,7 +37,7 @@ var afterOnEnter=function(e){
 		nav.appendTo($.mobile.activePage);
 
 		//var height=$(window).height()+$.mobile.activePage.children("[data-role=footer]").height()+$.mobile.activePage.children("[data-role=header]").height();
-                var height=$(document).height();
+        var height=$(document).height()+15;
 		$.mobile.activePage.children("[data-role=content]").css({
 			overflow:"scroll",
 			height:height+"px"

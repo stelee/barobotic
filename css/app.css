@@ -76,7 +76,7 @@
 }
 
 .ui-footer .ui-icon {
-	background-size: 75px;
+	background-size: 30px;
 	background-repeat: no-repeat;
 	background-position: 50% 26%;
 	background-color: transparent;
@@ -87,19 +87,19 @@
 
 #menu_1 .ui-icon
 {
-	background-image: url(../images/icons/14.png);
+	background-image: url(../images/icons/png/Retina-Ready.png);
 }
 #menu_2 .ui-icon
 {
-	background-image: url(../images/icons/11.png);
+	background-image: url(../images/icons/png/Pocket.png);
 }
 #menu_3 .ui-icon
 {
-	background-image: url(../images/icons/17.png);
+	background-image: url(../images/icons/png/Infinity-Loop.png);
 }
 #menu_4 .ui-icon
 {
-	background-image: url(../images/icons/13.png);
+	background-image: url(../images/icons/png/Pensils.png);
 }
 
 div.ui-slider-switch.ui-mini {
@@ -148,4 +148,26 @@ background-color: #840b2a;
 	padding-top:25px; 
 	padding-bottom: 25px;
 
+}
+.ui-btn-up-b {
+	border: 1px solid #1ABC9C;
+}
+a:link { text-decoration: none;}
+a:active { text-decoration:none}
+a:hover { text-decoration:none;} 
+a:visited { text-decoration: none;}
+.ui-btn-active{
+	color: grey!important;
+}
+
+.ui-dialog-contain .ui-content
+{
+	background: rgba(0, 0, 0, 0.5);
+}
+#doMakeDialog .ui-dialog-contain 
+{
+	width: 250px;
+	max-width:250px;
+	height: 200px;
+	top:0px;
 }

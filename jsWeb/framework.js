@@ -7,7 +7,7 @@ context.root=null;
 
 
 $(document).bind("mobileinit", function(){
-                 $.mobile.defaultPageTransition="none";
+                 $.mobile.defaultPageTransition="slide";
                  $.support.cors=true;//jquery properties
                  $.mobile.allowCrossDomainPages=true;
                  $.mobile.popup.prototype.options.history=false;
