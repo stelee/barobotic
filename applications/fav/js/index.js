@@ -26,9 +26,7 @@ define(function(require,exports,module){
 				})
 			return;
 		}
-		$.mobile.changePage( "../make_cocktails/doMake.html", { role: "dialog"} )
-		setTimeout(function(){
- 			$("#doMakeDialog").dialog("close");
- 		},10000)
+		var maker=require("js/services/cocktailsMaker");
+		maker.make();
 	}
 })

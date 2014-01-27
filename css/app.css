@@ -116,6 +116,7 @@ color: #CCC;
 .superBig
 {
 	font-size: 64pt;
+	margin: 10px;
 }
 
 html .ui-body-c, html .ui-page-theme-c .ui-body-inherit, html .ui-bar-c .ui-body-inherit, html .ui-body-c .ui-body-inherit, html body .ui-group-theme-c .ui-body-inherit, html .ui-panel-page-container-c {
@@ -178,4 +179,29 @@ a:visited { text-decoration: none;}
 	max-width:250px;
 	height: 200px;
 	top:0px;
+}
+/*#pumper_list li
+{
+	float: left
+}*/
+/*#pumper_list .ui-li.ui-first-child{
+-webkit-border-top-right-radius: initial;
+border-top-right-radius: initial;
+-webkit-border-top-left-radius: initial;
+border-top-left-radius: initial;
+}
+
+#pumper_list .ui-li.ui-last-child{
+-webkit-border-bottom-right-radius: initial;
+border-bottom-right-radius: initial;
+-webkit-border-bottom-left-radius: initial;
+border-bottom-left-radius: initial;
+}*/
+.clear
+{
+	clear: both;
+}
+.ui-content .ui-listview-inset, .ui-panel-inner .ui-listview-inset 
+{
+	min-width: 10px;
 }
