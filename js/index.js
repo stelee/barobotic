@@ -7,4 +7,12 @@ define(function(require,exports,module){
 	{
 		_loadApp("make_cocktails");
 	}
+	module.exports.fav=function(event)
+	{
+		_loadApp("fav");
+	}
+	module.exports.mix_up=function(event)
+	{
+		_loadApp("mix-up");
+	}
 })

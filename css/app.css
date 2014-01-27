@@ -156,6 +156,10 @@ background-color: #840b2a;
 .ui-btn-up-b {
 	border: 1px solid #1ABC9C;
 }
+.ui-btn-up-e {
+	border: 1px solid #ceaf33;
+}
+
 a:link { text-decoration: none;}
 a:active { text-decoration:none}
 a:hover { text-decoration:none;} 

@@ -8,13 +8,13 @@ app.items=[
 	},
 	{
 		id:"menu_2",
-		url:"#",
+		url:"applications/fav/index.html",
 		name:"Fav",
 		icon:"images/icons/png/Pocket.png"
 	},
 	{
 		id:"menu_3",
-		url:"#",
+		url:"applications/mix-up/index.html",
 		name:"Mix-up",
 		icon:"images/icons/png/Infinity-Loop.png"
 	},
