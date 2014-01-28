@@ -6,4 +6,7 @@ define(function(require,exports,module){
 		var maker=require("js/services/cocktailsMaker");
 		maker.make();
 	}
+	module.exports.save=function(){
+		_loadApp("mix-up","save");
+	}
 })

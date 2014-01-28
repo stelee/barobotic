@@ -1,0 +1,24 @@
+<div data-role="page" class="make_cocktails_class" self-menuIndex="0">
+	<div data-role="header">
+		<a href="#" data-icon="back" data-role="button" data-rel="back">Back</a>
+		<h1>Details</h1>
+	</div>
+	<div data-role="content">
+		<h1 class="superBig" id="recipe_name"></h1>
+		<p id="recipe_description"></p>
+		<div class="image_frame left" id="recipe_cover"></div>
+		<div class="control_pannel right" style="width:36%">
+			<ul data-role="listview" data-inset="true" data-theme="b">
+				<li><h1>Volume(oz):</h1><input type="range" name="slider1" id="slider1" value="1" min="0" max="5" data-highlight="true"></li>
+				<li><h1>Single or double</h1>
+					<select name="singleOrDoubleSelector" id="singleOrDoubleSelector" data-role="slider">
+					  <option value="single">Single</option>
+					  <option value="double">Double</option>
+					</select>
+				</li>
+				<li><button data-theme="g" self-callback="make">Make</button></li>
+				<li><button data-theme="e" self-callback="custom">Custom</button></li>
+			</ul>
+		</div>
+	</div>
+</div>

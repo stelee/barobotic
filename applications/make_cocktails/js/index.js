@@ -15,18 +15,20 @@ define(function(require,exports,module){
 		 })
 	}
 	makeDrink=function(id){
-		if(isNull(context.storage.get("alreadyMakeDrink")))
-		{
-			gapConfirm("Almost there! Are you sure to make the drink?",
-				function(){
-					context.storage.set("alreadyMakeDrink",true)
-					makeDrink(id);
-				},function(){
-					//no nothing
-				})
-			return;
-		}
-		var maker=require("js/services/cocktailsMaker");
-		maker.make();
+		// if(isNull(context.storage.get("alreadyMakeDrink")))
+		// {
+		// 	gapConfirm("Almost there! Are you sure to make the drink?",
+		// 		function(){
+		// 			context.storage.set("alreadyMakeDrink",true)
+		// 			makeDrink(id);
+		// 		},function(){
+		// 			//no nothing
+		// 		})
+		// 	return;
+		// }
+		// var maker=require("js/services/cocktailsMaker");
+		// maker.make();
+		context.parameter.set("id",id);
+		_loadApp("make_cocktails","details");
 	}
 })

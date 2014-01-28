@@ -205,3 +205,18 @@ border-bottom-left-radius: initial;
 {
 	min-width: 10px;
 }
+
+div.make_cocktails_class.ui-page.ui-page-active
+{
+	background: #1ABC9C;
+}
+.image_frame
+{
+	background-image: url(../images/cocktails.jpg);
+	width: 60%;
+	height: 60%;
+	background-position: 50% 50%;
+	background-size: cover;
+	border: 5px solid white;
+	box-shadow: 0px 0px 10px black;
+}
