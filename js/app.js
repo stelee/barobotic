@@ -20,7 +20,7 @@ app.items=[
 	},
 	{
 		id:"menu_4",
-		url:"#",
+		url:"applications/config/index.html",
 		name:"Config",
 		icon:"images/icons/png/Pensils.png"
 	}
@@ -37,9 +37,8 @@ var afterOnEnter=function(e){
 		nav.appendTo($.mobile.activePage);
 
 		//var height=$(window).height()+$.mobile.activePage.children("[data-role=footer]").height()+$.mobile.activePage.children("[data-role=header]").height();
-        var height=$(document).height()+15;
+        var height=$(document).height()-73;
 		$.mobile.activePage.children("[data-role=content]").css({
-			overflow:"scroll",
 			height:height+"px"
 		});
 	}

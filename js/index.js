@@ -15,4 +15,8 @@ define(function(require,exports,module){
 	{
 		_loadApp("mix-up");
 	}
+	module.exports.config=function(event)
+	{
+		_loadApp("config");
+	}
 })

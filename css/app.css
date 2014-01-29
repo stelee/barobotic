@@ -210,6 +210,14 @@ div.make_cocktails_class.ui-page.ui-page-active
 {
 	background: #1ABC9C;
 }
+div.mix_up_class.ui-page.ui-page-active {
+	background: rgb(52, 152, 219);
+}
+
+div.config_class.ui-page.ui-page-active
+{
+	background: #2ECC71
+}
 .image_frame
 {
 	background-image: url(../images/cocktails.jpg);
@@ -223,5 +231,10 @@ div.make_cocktails_class.ui-page.ui-page-active
 
 div[data-role=content]
 {
-	overflow: visible!important;
+	overflow: auto;
+}
+
+.ui-body-c.ui-input-text {
+	border: 2px solid #eee;
+	background: darkcyan;
 }

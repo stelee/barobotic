@@ -1,10 +1,25 @@
-<div data-role="page" class="make_cocktails_class" self-menuIndex="2">
+<div data-role="page" class="mix_up_class" self-menuIndex="2">
 	<div data-role="header">
 		<a href="#" data-icon="back" data-role="button" data-rel="back">Back</a>
-		<h1>Mix-up</h1>
+		<h1>Save Your Recipe</h1>
 	</div>
 
 	<div data-role="content">
-		
+		<h1 class="superBig">Save your own favor</h1>
+		<ul data-role="listview" data-inset="true" data-theme="a">
+			<li>
+				<h1>Name</h1>
+				<input name="name" id="name"/>
+			</li>
+			<li>
+				<h1>Description</h1>
+				<textarea name="description" id="description">
+				</textarea>
+			</li>
+			<li>
+				<button data-inline="true" data-theme='g' self-callback="save">Save</button>
+				<button data-inline="true" data-theme='d' self-callback="cancel">Cancel</button>
+			</li>
+		</ul>
 	</div>
 </div>
