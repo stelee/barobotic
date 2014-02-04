@@ -8,25 +8,20 @@ define(function(require,exports,module){
 		listview.render(list,function(item,$li){
 			var htmlstr="<a href='#' onclick='makeDrink({id})'><h1>{name}</h1>\
 			<p>{description}</p></a>";
-			
+
 		 	$li.html(
 		 		htmlstr.bind(item)
 		 	);
 		 })
 	}
 	makeDrink=function(id){
-		if(isNull(context.storage.get("alreadyMakeDrink")))
-		{
-			gapConfirm("Almost there! Are you sure to make the drink?",
+    gapConfirm("Almost there! Are you sure to make the drink?",
 				function(){
-					context.storage.set("alreadyMakeDrink",true)
-					makeDrink(id);
+					var maker=require("js/services/cocktailsMaker");
+		      maker.make();
 				},function(){
 					//no nothing
 				})
-			return;
-		}
-		var maker=require("js/services/cocktailsMaker");
-		maker.make();
+
 	}
 })

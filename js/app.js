@@ -37,13 +37,13 @@ var afterOnEnter=function(e){
 		nav.appendTo($.mobile.activePage);
 
 		//var height=$(window).height()+$.mobile.activePage.children("[data-role=footer]").height()+$.mobile.activePage.children("[data-role=header]").height();
-        var height=$(document).height()-73;
+    var height=$(document).height();
 		$.mobile.activePage.children("[data-role=content]").css({
 			height:height+"px"
 		});
 	}
 
-	
+
 	//bind the function
 	$("[self-callback]")
 	.unbind('click')
