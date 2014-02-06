@@ -1,4 +1,10 @@
 Namespace.register("app");
+app.dbConfig={
+		dbName:"Barobotic",
+		version:"1.0",
+		description:"Barobotic database",
+		size:1000
+	}
 app.items=[
 	{
 		id:"menu_1",

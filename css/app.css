@@ -238,3 +238,7 @@ div[data-role=content]
 	border: 2px solid #eee;
 	background: darkcyan;
 }
+
+.ui-btn-up-f {
+	border: 1px solid #1ABC9C;
+}
