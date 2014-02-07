@@ -15,14 +15,15 @@ define(function(require,exports,module){
  		},7000)
 	};
 
-	Maker.prototype.getRecipe=function(id){
-		this.recipe= {
-			name:"A Gilligan's Island",
-			description:"1 oz vodka,1 oz peach schnapps,\
-3 oz orange juice,3 oz cranberry juice.Shaken, not stirred.",
-			cover:"http://pocketcocktails.com/wp-content/uploads/2012/11/gilligansisland.jpg"
-		}
-		this.trigger("get recipe");
+	Maker.prototype.getRecipe=function(code,callBack){
+		var sql="select * from recipe where code={code}".bind("code",code)
+		var dbo=new entity.Base();
+		var that=this;
+		dbo.on("findFirstBySql",function(){
+
+			that.recipe=this.entity;
+			that.trigger('get recipe')
+		}).findFirstBySql(sql)
 	}
 
 	module.exports.Maker=Maker;

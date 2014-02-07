@@ -1,11 +1,11 @@
 define(function(require,exports,module){
-	module.exports.getRecipeList=function(){
-		return [
-			{id:1,name:"Curacao Punch",href:"#",description:"this is an sample description"},
-			{id:2,name:"B&B",href:"#",description:"this is an sample description"},
-			{id:3,name:"The Blenheim",href:"#",description:"this is an sample description"},
-			{id:4,name:"Singapore Sling",href:"#",description:"this is an sample description"},
-			{id:5,name:"20th Century",href:"#",description:"this is an sample description"},
-		]
+	module.exports.getRecipeList=function(callBack){
+		var sql="select code,name,description from recipe where code not in\
+			(select recipe_code as code from recipe_drink where drink_code not in\
+			 	(select drink_code from pumperConfig))"
+		var dbo=new entity.Base();
+		dbo.on("listBySql",function(){
+			callBack(this.entities);
+		}).listBySql(sql);
 	}
 })

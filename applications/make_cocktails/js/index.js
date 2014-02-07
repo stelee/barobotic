@@ -2,17 +2,19 @@ define(function(require,exports,module){
 	module.exports.onEnter=function(){
 		$.mobile.activePage.css("background","#1ABC9C");
 		var recipeService=require("/js/services/recipe.js");
-
-		var list=recipeService.getRecipeList();
-		var listview=new comp.Listview("#recipe_list");
-		listview.render(list,function(item,$li){
-			var htmlstr="<a href='#' onclick='makeDrink({id})'><h1>{name}</h1>\
-			<p>{description}</p></a>";
-			
-		 	$li.html(
-		 		htmlstr.bind(item)
-		 	);
-		 })
+		var showList=function(list){
+			var listview=new comp.Listview("#recipe_list");
+			listview.render(list,function(item,$li){
+				var htmlstr="<a href='#' onclick='makeDrink({code})'><h1>{name}</h1>\
+				<p>{description}</p></a>";
+				
+			 	$li.html(
+			 		htmlstr.bind(item)
+			 	);
+			 })
+		}
+		var list=recipeService.getRecipeList(showList);
+		
 	}
 	makeDrink=function(id){
 		// if(isNull(context.storage.get("alreadyMakeDrink")))

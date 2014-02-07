@@ -26,7 +26,9 @@ entity.Base.prototype.executeSql=function(sql,eventName)
 entity.Base.prototype.findFirstBySql=function(sql,eventName)
 {
 	var that=this;
-	core.entity.EntityList.find(sql,function(list)
+	if(isNull(eventName))
+		eventName="findFirstBySql";
+	this.find(sql,function(list)
 	{
 		if(list.length>0)
 		{
@@ -44,7 +46,10 @@ entity.Base.prototype.findFirstBySql=function(sql,eventName)
 entity.Base.prototype.findBySql=function(sql,eventName)
 {
 	var that=this;
-	core.entity.EntityList.find(sql,function(list)
+	if(isNull(eventName))
+		eventName="findBySql";
+
+	this.find(sql,function(list)
 	{
 		that.entities=list;//TODO:that.entity not entities
 		that.trigger(eventName);
@@ -55,55 +60,12 @@ entity.Base.prototype.findBySql=function(sql,eventName)
 entity.Base.prototype.listBySql=function(sql,eventName)
 {
 	var that=this;
-	core.entity.EntityList.find(sql,function(list)
+	if(isNull(eventName))
+		eventName="listBySql";
+	this.find(sql,function(list)
 	{
 		that.entities=list;
 		that.trigger(eventName);
-	});
-	return this;
-}
-
-entity.Base.prototype.find=function(searchStr,onFind)
-{
-	var sql="select * from {tableName} where 1=1".bind("tableName",this.tableName);
-	var that=this;
-	if(searchStr)
-	{
-		sql+=" and "+searchStr;
-	}
-	core.entity.EntityList.find(sql,function(list)
-	{
-		if(list.length==0)
-		{
-			that.entity=null;
-			that.trigger("!find");
-
-		}else{
-			that.entity=list[0];
-			if(!onFind)
-				that.trigger("find");
-			else
-				onFind.apply(this);
-		}
-	});
-	return this;
-}
-entity.Base.prototype.list=function(searchStr,orderby)
-{
-	var sql="select * from {tableName} where 1=1".bind("tableName",this.tableName);
-	var that=this;
-	if(searchStr)
-	{
-		sql+=" and "+searchStr;
-	}
-	if(orderby)
-	{
-		sql+=" order by "+orderby;
-	}
-	core.entity.EntityList.find(sql,function(list)
-	{
-		that.entities=list;
-		that.trigger("list")
 	});
 	return this;
 }
@@ -322,12 +284,16 @@ entity.Base.prototype.saveToDB=function(tableName,fieldsList,valuesList,idNames,
             }
 
         }
-        var deleteSql="delete from {tableName} where {whereStr}".bind(
-        {
-            tableName:tableName.trim(),
-            whereStr:whereStr
-        })
-        sqls.push(deleteSql);
+        if(idNames.length!=0){
+        	var deleteSql="delete from {tableName} where {whereStr}".bind(
+	        {
+	            tableName:tableName.trim(),
+	            whereStr:whereStr
+	        })
+	        sqls.push(deleteSql);
+
+        }
+        
         var sql="INSERT INTO '"+tableName.trim()+"' ("+fieldsSql+")VALUES("+valueSql+")";
         if(core.utils.getDDLFlag(sql)!="D"){
             sqls.push(sql);
@@ -335,4 +301,25 @@ entity.Base.prototype.saveToDB=function(tableName,fieldsList,valuesList,idNames,
     }
     console.log(sqls);
     db.update(sqls,onFailed,onSuccess);
+}
+
+entity.Base.prototype.find=function(sql,callback)
+{
+	var db=new DBClient();
+	var onFailed=function(error){
+		console.error(error);
+		console.error(" @ ");
+		console.error(sql);
+	}
+	db.select(sql,function(tx,rs)
+	{
+		list=new Array();
+		var len=rs.rows.length;
+		for(var i=0;i<len;i++)
+		{
+			var entry=rs.rows.item(i);
+			list.push(entry);
+		}
+		callback(list);
+	},onFailed);
 }

@@ -612,6 +612,41 @@ core.utils.fn.loadPage=function(appName,pageName)
 core.utils.fn.getVar=function(idName){
     return $("#"+idName).val();
 }
+core.utils.getDDLFlag=function(sql)
+{
+    var fieldsMatches=sql.match(/\((.*)\)VALUES/);
+    var valuesMatches=sql.match(/VALUES\((.*)\)/);
+    if(fieldsMatches==null||valuesMatches==null)
+    {
+        return null;
+    }
+    var ddlFlagFieldIndex=fieldsMatches[1].split(",").indexOf("'ddlFlag'");
+    if(ddlFlagFieldIndex==-1)
+    {
+        return null;
+    }
+    var values=valuesMatches[1].split(",");
+    if(values.length<=ddlFlagFieldIndex)
+    {
+        return null;
+    }else
+    {
+        return values[ddlFlagFieldIndex].replace(/^\'+|\'$/g,'');
+    }
+}
+core.utils.sqlFormat=function(value)
+{
+    if(isNull(value))
+    {
+        return "null";
+    }
+    else if("number" == typeof value){
+        return value;
+    }else
+    {
+        return "'"+value.replace(/\'/g,"''")+"'"
+    }
+}
 
 _CHG=core.utils.fn.changePage;
 _loadApp=core.utils.fn.loadPage;

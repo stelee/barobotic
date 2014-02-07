@@ -1,5 +1,4 @@
 //Database interface
-var dbConfig;
 var globalDB;//=window.openDatabase(dbConfig.dbName,dbConfig.version,dbConfig.descriptionName,dbConfig.size);
 
 function DBClient(dbConfig)
@@ -17,6 +16,10 @@ function DBClient(dbConfig)
         size=arguments[3];
     }else
     {
+        if(typeof(dbConfig)=='undefined')
+        {
+            dbConfig=app.dbConfig;
+        }
         name=dbConfig.dbName;
         version=dbConfig.version;
         descriptionName=dbConfig.descriptionName;

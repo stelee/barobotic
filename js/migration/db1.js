@@ -2,7 +2,6 @@
 module.exports.up=function(onSuccess,onFailed){
 	var Table=require("js/plugins/generalTable").Table;
 	var sqls=new Array();
-	debugger;
 	sqls
 	.push(
 		(new Table("pumperConfig",[

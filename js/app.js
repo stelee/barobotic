@@ -3,7 +3,8 @@ app.dbConfig={
 		dbName:"Barobotic",
 		version:"1.0",
 		description:"Barobotic database",
-		size:1000
+		size:1000,
+		migration_version:5
 	}
 app.items=[
 	{

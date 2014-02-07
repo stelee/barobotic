@@ -2,6 +2,7 @@ define(function(require,exports,module){
 	module.exports.onEnter=function()
 	{
 		$.mobile.activePage.css("height","100%")
+		initializeDB();
 	}
 	module.exports.make=function(event)
 	{
@@ -18,5 +19,11 @@ define(function(require,exports,module){
 	module.exports.config=function(event)
 	{
 		_loadApp("config");
+	}
+	initializeDB=function(){
+		var dbs=require("js/services/databaseService");
+		dbs.createDatabase(app.dbConfig.migration_version,function(){
+			console.log("database initialized");
+		});
 	}
 })
