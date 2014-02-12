@@ -302,12 +302,12 @@ var getCurrentDateTime=function()
 var getCurrentTimestamp=function()
 {
     var currentTimeStamp=(new Date()).get_unixtimestamp();
-    var lastsynctime=parseInt(lastSyncTime());
-    if(isNaN(lastSyncTime()))
+    var lastsynctime=parseInt(context.storage.get("_lastsyctime"));
+    if(isNaN(lastsynctime))
     {
         return currentTimeStamp;
     }
-    if(currentTimeStamp<lastSyncTime())
+    if(currentTimeStamp<lastsynctime)
     {
         currentTimeStamp=lastsynctime+Math.round(Math.random()*100);
     }

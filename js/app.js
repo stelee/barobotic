@@ -4,7 +4,7 @@ app.dbConfig={
 		version:"1.0",
 		description:"Barobotic database",
 		size:1000,
-		migration_version:5
+		migration_version:6
 	}
 app.items=[
 	{

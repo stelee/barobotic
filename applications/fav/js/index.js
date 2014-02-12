@@ -16,7 +16,7 @@ define(function(require,exports,module){
 			 })
 		}
 		
-		var list=recipeService.getRecipeList(showList);
+		var list=recipeService.getFavRecipeList(showList);
 	}
 	makeDrink=function(id){
     gapConfirm("Almost there! Are you sure to make the drink?",
