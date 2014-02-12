@@ -8,21 +8,11 @@
 		<h1 class="superBig">Mix-up Your Own</h1>
 		<p>Rate how much you want for each pump and the machine will make the cocktails for you</p>
 		<button data-inline="true" data-theme='e' self-callback="try">Try</button><button data-inline="true" data-theme="g" self-callback="save">Save</button>
+		<ul data-role="listview" data-inset="true" data-theme="b">
+				<li><h1>Volume(oz):</h1><input type="range" name="slider1" id="inputVolume" value="1" min="0" max="5" data-highlight="true"></li>
+		</ul>
 		<ul data-role="listview" data-theme="b"
 			data-inset="true" id="pumper_list">
-			<li><h1>{{PUMPER1}}</h1><input type="range" name="slider1" id="slider1" value="50" min="0" max="100" data-highlight="true"></li>
-
-			<li><h1>{{PUMPER2}}</h1><input type="range" name="slider2" id="slider2" value="50" min="0" max="100" data-highlight="true"></li>
-
-			<li><h1>{{PUMPER3}}</h1><input type="range" name="slider3" id="slider3" value="50" min="0" max="100" data-highlight="true"></li>
-
-			<li><h1>{{PUMPER4}}</h1><input type="range" name="slider4" id="slider4" value="50" min="0" max="100" data-highlight="true"></li>
-
-			<li><h1>{{PUMPER5}}</h1><input type="range" name="slider5" id="slider5" value="50" min="0" max="100" data-highlight="true"></li>
-
-			<li><h1>{{PUMPER6}}</h1><input type="range" name="slider6" id="slider6" value="50" min="0" max="100" data-highlight="true"></li>
-
-			<li><h1>{{PUMPER7}}</h1><input type="range" name="slider7" id="slider7" value="50" min="0" max="100" data-highlight="true"></li>
 		</ul>
 		<button data-inline="true" data-theme='e' self-callback="try">Try</button><button data-inline="true" data-theme="g" self-callback="save">Save</button>
 	</div>
