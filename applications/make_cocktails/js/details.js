@@ -21,6 +21,7 @@ define(function(require,exports,module){
 		maker.make();
 	}
 	module.exports.custom=function(){
+		context.parameter.set("recipeCode",context.parameter.get("id"));
 		_loadApp("mix-up");
 	}
 	module.exports.fav=function(){

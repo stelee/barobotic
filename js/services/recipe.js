@@ -16,8 +16,15 @@ module.exports.addFav=function(code,callBack){
 	var ent=new entity.Base("recipe");
 	ent.on("update",callBack).update({"is_fav":1},"code='"+code+"'");
 }
+module.exports.getRecipe=function(recipeCode,callBack){
+	var sql="select drink_code,quantity from recipe_drink where recipe_code ="+recipeCode;
+	var dbo=new entity.Base();
+	dbo.on(function(){
+		callBack(this.entities)
+	}).listBySql(sql);
+}
 
-getRecipeListBySql=function(sql,callBack){
+var getRecipeListBySql=function(sql,callBack){
 	var dbo=new entity.Base("recipe");
 	dbo.on("listBySql",function(){
 		callBack(this.entities);

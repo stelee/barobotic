@@ -69,6 +69,9 @@ entity.Base.prototype.listBySql=function(sql,eventName)
 	});
 	return this;
 }
+entity.Base.prototype.listAll=function(){
+	this.listBySql("select * from "+this.tableName,"listAll");
+}
 entity.Base.prototype.createUpdate=function(dataMap,whereStr,dbFlag)
 {
 	if(isNull(dbFlag))

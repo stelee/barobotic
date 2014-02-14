@@ -43,11 +43,13 @@ var afterOnEnter=function(e){
 		nav.setItems(app.items);
 		nav.appendTo($.mobile.activePage);
 
-		//var height=$(window).height()+$.mobile.activePage.children("[data-role=footer]").height()+$.mobile.activePage.children("[data-role=header]").height();
-    var height=$(document).height();
-		$.mobile.activePage.children("[data-role=content]").css({
-			height:height+"px"
-		});
+		setTimeout(function(){
+			//var height=$(document).height()+$.mobile.activePage.children("[data-role=footer]").height();
+    		var height=$(document).height();
+			$.mobile.activePage.children("[data-role=content]").css({
+				height:height+"px"
+			});
+		},200)
 	}
 
 

@@ -5,7 +5,7 @@ define(function(require,exports,module){
 
 		pumperConfig.on('list',function(){
 			var listview=new comp.Listview("#pumper_list");
-			listview.render(this.list,function(item,$li){
+			listview.render(this.entities,function(item,$li){
 				var $title=$('<h1>Pumper#{code}-{name}</h1>'.bind(item));
 				
 				var $div=$("<div>");
@@ -18,10 +18,16 @@ define(function(require,exports,module){
 					type:"number",
 					"class":"ui-input-text ui-body-c ui-corner-all ui-shadow-inset ui-slider-input"
 				});
-
+				$li.attr("self-drink-code",item.drink_code);
 			 	$li.append($title).append($div);
 			 })
 		}).list();
+		var recipeCode=context.parameter.get("recipeCode");
+		if(recipeCode){
+			setTimeout(function(){
+				fillRecipe(recipeCode);
+			},200);
+		}
 	}
 	module.exports.try=function(){
 		var maker=require("js/services/cocktailsMaker");
@@ -29,5 +35,24 @@ define(function(require,exports,module){
 	}
 	module.exports.save=function(){
 		_loadApp("mix-up","save");
+	}
+	var fillRecipe=function(recipeCode){
+		var recipe=require("js/services/recipe");
+		recipe.getRecipe(recipeCode,function(rList){
+			var total=0;
+			for(index in rList){
+				total+=rList[index].quantity;
+			}
+			for(index in rList){
+				debugger;
+				var item=rList[index];
+
+				var weight=Math.round(item.quantity/total*100);
+				var $input=$($("li[self-drink-code="+item.drink_code+"]")[0]).find("input");
+				$input.val(weight);
+				$input.slider('refresh');
+			}
+			
+		})
 	}
 })
