@@ -9,7 +9,23 @@ define(function(require,exports,module){
 
     var dbs=new entity.Base();
     dbs.on('listBySql',function(){
-      that.entities=this.entities;
+      that.entities=[];
+      for(var entryIndex in this.entities)
+      {
+        var entry=this.entities[entryIndex];
+        if(isNull(entry.drink_code))
+        {
+          that.entities.push({
+            code:entry.code,
+            drink_code:-1,
+            name:'Not configured'
+          });
+        }else{
+          that.entities.push(entry);
+        }
+       
+      }
+
       that.trigger("list");
     }).listBySql(sql);
 

@@ -14,7 +14,12 @@ define(function(require,exports,module){
 		 })
     });
     setToPumper=function(){
-      var drinkCode=$(event.target).parent("a").attr("self-code");
+      var $target=$(event.target);
+      if($target.prop('tagName')!='A')
+      {
+        $target=$target.parents("a");
+      }
+      var drinkCode=$target.attr("self-code");
       var pumperCode=context.parameter.get("pumperCode");
       var pumperConfig=require("js/services/pumperConfig").pumperConfig;
       pumperConfig.on(function(){

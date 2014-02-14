@@ -16,6 +16,10 @@ module.exports.addFav=function(code,callBack){
 	var ent=new entity.Base("recipe");
 	ent.on("update",callBack).update({"is_fav":1},"code='"+code+"'");
 }
+module.exports.removeFav=function(code,callBack){
+	var ent=new entity.Base("recipe");
+	ent.on("update",callBack).update({"is_fav":0},"code='"+code+"'");
+}
 module.exports.getRecipe=function(recipeCode,callBack){
 	var sql="select drink_code,quantity from recipe_drink where recipe_code ="+recipeCode;
 	var dbo=new entity.Base();
