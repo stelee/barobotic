@@ -21,7 +21,7 @@
 	linkCSS("css/flatui.theme.css")
 	linkCSS("css/app.css");
 	includeJS("jsWeb/jquery/jquery.js",
-		"cordova-current.js",
+		"cordova.js",
 		"jsWeb/libs/core.namespace.js",
 		"jsWeb/libs/core.session.js",
 		"jsWeb/framework.js",
