@@ -6,6 +6,11 @@ define(function(require,exports,module){
 			var recipe=this.recipe;
 			$("#recipe_name").text(recipe.name);
 			$("#recipe_description").text(recipe.description);
+			if(recipe.is_fav==1)
+			{
+				$("#btnFav").text("Remove From Fav").button('refresh');
+			}
+
 			//$("#recipe_cover").css("background-image","url("+recipe.cover+")")
 			if(!isNull(recipe.image_url)){
 				var image=new Image();
@@ -27,6 +32,12 @@ define(function(require,exports,module){
 	module.exports.fav=function(){
 		var id=context.parameter.get("id");
 		var recipe=require("js/services/recipe");
-		recipe.addFav(id,function(){gapAlert("Successfully add this to the fav")});
+		if($("#btnFav").text()=='Remove From Fav')
+		{
+			recipe.removeFav(id,function(){gapAlert("Successfully remove this to the fav")});
+		}else
+		{
+			recipe.addFav(id,function(){gapAlert("Successfully add this to the fav")});
+		}
 	}
 })

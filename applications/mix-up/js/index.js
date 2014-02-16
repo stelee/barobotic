@@ -27,6 +27,10 @@ define(function(require,exports,module){
 			setTimeout(function(){
 				fillRecipe(recipeCode);
 			},200);
+		}else{
+			setTimeout(function(){
+				resetEmptyPumper();
+			},200);
 		}
 	}
 	module.exports.try=function(){
@@ -34,9 +38,24 @@ define(function(require,exports,module){
 		maker.make();
 	}
 	module.exports.save=function(){
+		var recipeDetails=new Array();
+		$("li[self-drink-code]").each(function(){
+				$this=$(this);
+				var details={};
+				details.drink_code=$this.attr("self-drink-code");
+				details.quantity=$this.find("input").val();
+				recipeDetails.push(details);
+			}
+		)
+		context.parameter.set('recipeDetails',recipeDetails);
+
 		_loadApp("mix-up","save");
 	}
+	var resetEmptyPumper=function(){
+		$("li[self-drink-code=-1]").find("input").val(0).slider('refresh').attr('disabled','disabled');
+	}
 	var fillRecipe=function(recipeCode){
+		$("li[self-drink-code]").find("input").val(0).slider('refresh')
 		var recipe=require("js/services/recipe");
 		recipe.getRecipe(recipeCode,function(rList){
 			var total=0;
@@ -44,15 +63,13 @@ define(function(require,exports,module){
 				total+=rList[index].quantity;
 			}
 			for(index in rList){
-				debugger;
 				var item=rList[index];
-
 				var weight=Math.round(item.quantity/total*100);
 				var $input=$($("li[self-drink-code="+item.drink_code+"]")[0]).find("input");
 				$input.val(weight);
 				$input.slider('refresh');
 			}
-			
+			context.parameter.fetch("recipeCode");
 		})
 	}
 })

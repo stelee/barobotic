@@ -14,6 +14,10 @@ define(function(require,exports,module){
   }
   setPumper=function(pumperCode,drinkCode){
     var $target=$(event.target);
+    if($target.prop('tagName')!='A')
+    {
+      $target=$target.parents("a");
+    }
     context.parameter.set("pumperCode",$target.attr("self-pumperCode"));
     context.parameter.set("drinkCode",$target.attr("self-drinkCode"));
     context.parameter.set("drink",$target.attr("self-drink"));
