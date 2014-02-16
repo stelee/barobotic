@@ -1,7 +1,7 @@
 define(function(require,exports,module){
 	module.exports.onEnter=function(){
 		$.mobile.activePage.css("background","#ceaf33");
-		var recipeService=require("/js/services/recipe.js");
+		var recipeService=require("js/services/recipe.js");
 
 		
 		showList=function(list){

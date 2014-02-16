@@ -1,7 +1,7 @@
 define(function(require,exports,module){
 	module.exports.onEnter=function(){
 		$.mobile.activePage.css("background","#1ABC9C");
-		var recipeService=require("/js/services/recipe.js");
+		var recipeService=require("js/services/recipe.js");
 		var showList=function(list){
 			var listview=new comp.Listview("#recipe_list");
 			listview.render(list,function(item,$li){

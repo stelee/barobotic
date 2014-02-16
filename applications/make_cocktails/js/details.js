@@ -26,7 +26,7 @@ define(function(require,exports,module){
 	}
 	module.exports.fav=function(){
 		var id=context.parameter.get("id");
-		var recipe=require("/js/services/recipe");
+		var recipe=require("js/services/recipe");
 		recipe.addFav(id,function(){gapAlert("Successfully add this to the fav")});
 	}
 })
