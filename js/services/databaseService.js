@@ -5,10 +5,13 @@ define(function(require,exports,module){
 			context.storage.set("_db_version",version);
 			callBack();
 		}
-		var db_version=parseInt(context.storage.get("_db_version"));
-		if('undefined'== typeof(db_version))
+		var db_version=context.storage.get("_db_version");
+		if(isNull(db_version))
 		{
 			db_version=0;
+		}else
+		{
+			db_version=parseInt(db_version);
 		}
 		var migrations=new Array();
 

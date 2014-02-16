@@ -90,11 +90,11 @@ var onRemove=function()
 
 var onDeviceReady=function(){
     document.addEventListener("resume", onResume, false);
-    __Configuration.deviceName=device.name;
-    __Configuration.deviceCordova=device.cordova;
-    __Configuration.devicePlatform=device.platform;
-    __Configuration.deviceUUID=device.uuid;
-    __Configuration.deviceVersion=device.version;
+    // __Configuration.deviceName=device.name;
+    // __Configuration.deviceCordova=device.cordova;
+    // __Configuration.devicePlatform=device.platform;
+    // __Configuration.deviceUUID=device.uuid;
+    // __Configuration.deviceVersion=device.version;
     document.addEventListener("backbutton",function(){},false);
 }
 function onResume() {
