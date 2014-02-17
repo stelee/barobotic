@@ -66,3 +66,20 @@ var afterOnEnter=function(e){
 	});
 
 }
+if('undefined'==typeof(bluetoothSerial))
+{
+	//mock it
+	bluetoothSerial={};
+	bluetoothSerial.clear=function(){console.log("bluetoothSerial.clear")};
+	bluetoothSerial.unsubscribe=function(){console.log("bluetoothSerial.unsubscribe")};
+	bluetoothSerial.disconnect=function(any){any();}
+	bluetoothSerial.list=function(any){any([{name:"linvor"}]);}
+	bluetoothSerial.connect=function(address,any){any();}
+	bluetoothSerial.write=function(myStr,any){
+		console.log("write the string "+myStr);
+		any();
+	}
+	bluetoothSerial.subscribe=function(det,any){
+		any("*DONE");
+	}
+}
