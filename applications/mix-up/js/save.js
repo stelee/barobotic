@@ -11,6 +11,17 @@ define(function(require,exports,module){
 			return;
 		}
 		var dbs=new entity.Base();
+		dbs.on("findFirstBySql",function(){
+			gapAlert("You already have the same name in the database");
+		})
+		.on("!findFirstBySql",function(){
+			doSave(name,description);
+		})
+		.findFirstBySql("select 1 from recipe where name='"+name+"'");
+
+	}
+	var doSave=function(name,description){
+		var dbs=new entity.Base();
 		var sqls=new Array();
 		var code=getCurrentTimestamp();
 		sqls.push(

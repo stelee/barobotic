@@ -2,7 +2,7 @@ define(function(require,exports,module){
 	module.exports.onEnter=function(){
 		$.mobile.activePage.css("background","#3498DB");
 		var pumperConfig=require("js/services/pumperConfig").pumperConfig;
-
+		var recipeDetails=context.session.get('recipeDetails');
 		pumperConfig.on('list',function(){
 			var listview=new comp.Listview("#pumper_list");
 			listview.render(this.entities,function(item,$li){
@@ -22,14 +22,14 @@ define(function(require,exports,module){
 			 	$li.append($title).append($div);
 			 })
 		}).list();
-		var recipeCode=context.parameter.get("recipeCode");
+		var recipeCode=context.parameter.fetch("recipeCode");
 		if(recipeCode){
 			setTimeout(function(){
 				fillRecipe(recipeCode);
 			},200);
 		}else{
 			setTimeout(function(){
-				resetEmptyPumper();
+				resetEmptyPumper(recipeDetails);
 			},200);
 		}
 	}
@@ -61,13 +61,17 @@ define(function(require,exports,module){
 	    }
 	}
 	module.exports.try=function(){
+		
 		var recipeDetails=buildRecipe()
+		context.session.set('recipeDetails',recipeDetails);
 		var volume=$("#inputVolume").val();
 		var maker=require("js/services/cocktailsMaker").maker;
 		maker.makeByRecipe(recipeDetails,volume);
 	}
 	module.exports.save=function(){
+		
 		var recipeDetails=buildRecipe();
+		context.session.set('recipeDetails',recipeDetails);
 		if(verifyRecipe(recipeDetails)==false)
 		{
 			gapAlert("You can't save recipe with all quantity set to 0 or less than 0");
@@ -76,8 +80,12 @@ define(function(require,exports,module){
 		context.parameter.set('recipeDetails',recipeDetails);
 		_loadApp("mix-up","save");
 	}
-	var resetEmptyPumper=function(){
+	var resetEmptyPumper=function(recipeDetails){
 		$("li[self-drink-code=-1]").find("input").val(0).attr('disabled','disabled');
+		for(var index in recipeDetails){
+			var recipe=recipeDetails[index];
+			$("li[self-drink-code="+recipe.drink_code+"]").find("input").val(recipe.quantity);
+		}
 	}
 	var fillRecipe=function(recipeCode){
 		$("li[self-drink-code]").find("input").val(0)

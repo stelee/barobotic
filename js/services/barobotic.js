@@ -74,7 +74,7 @@ Barobotic.prototype.run=function(command){
     })
     .register(function(next){
     	 bluetoothSerial.write(command,function(){
-	        console.log("data written");
+	        console.log("data written "+command);
 	        next();
 	      },function(error){
 	      	console.error(error);
@@ -82,9 +82,9 @@ Barobotic.prototype.run=function(command){
 	      });
     })
     .register(function(next){
-    	bluetoothSerial.subscribe('\n',function(msg){
+    	bluetoothSerial.subscribe('\r',function(msg){
 		    console.log("Get the return from the device "+msg);
-		    if(msg!="*DONE"){
+		    if(msg.indexOf("*DONE")==-1){
 		     	clearBluetooth(next,"Failed to make the cocktails")
 		    }else
 		    {
