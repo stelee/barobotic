@@ -23,4 +23,9 @@ define(function(require,exports,module){
     context.parameter.set("drink",$target.attr("self-drink"));
     _loadApp("config","configPumper");
   }
+  module.exports.reset=function(){
+    gapConfirm("Are you sure to reset the connection to the device?",function(){
+      require("js/services/barobotic").barobotic.resetDevice();
+    },function(){})
+  }
 })

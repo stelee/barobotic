@@ -8,13 +8,22 @@ core.Storage=function(){
     this.storage=window.localStorage;
 }
 core.Storage.prototype.set = function(key,value) {
+ 
+    value=JSON.stringify(value);
+
     this.storage.setItem(key,value);
 }
 core.Storage.prototype.get=function(key){
-    return this.storage.getItem(key);
+    var ret=this.storage.getItem(key);
+    if(ret==null){
+        return ret;
+    }else
+    {
+        return JSON.parse(ret);
+    }
 }
 core.Storage.prototype.remove=function(key){
-    var ret=this.storage.getItem(key);
+    var ret=this.get(key);
     this.storage.removeItem(key);
     return ret;
 }

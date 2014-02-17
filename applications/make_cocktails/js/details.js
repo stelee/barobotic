@@ -1,7 +1,7 @@
 define(function(require,exports,module){
 	module.exports.onEnter=function(){
 		var id=context.parameter.get("id");
-		var maker=require("js/services/cocktailsMaker").maker();
+		var maker=require("js/services/cocktailsMaker").maker;
 		maker.on("get recipe",function(){
 			var recipe=this.recipe;
 			$("#recipe_name").text(recipe.name);
@@ -22,8 +22,11 @@ define(function(require,exports,module){
 		}).getRecipe(id)
 	}
 	module.exports.make=function(){
-		var maker=require("js/services/cocktailsMaker");
-		maker.make();
+		var volume=$("#inputVolume").val();
+		var recipeCode=context.parameter.get("id");
+
+		var maker=require("js/services/cocktailsMaker").maker;
+		maker.makeByRecipeCode(recipeCode,volume);
 	}
 	module.exports.custom=function(){
 		context.parameter.set("recipeCode",context.parameter.get("id"));
@@ -35,9 +38,11 @@ define(function(require,exports,module){
 		if($("#btnFav").text()=='Remove From Fav')
 		{
 			recipe.removeFav(id,function(){gapAlert("Successfully remove this to the fav")});
+			$("#btnFav").text("Add Fav").button('refresh');
 		}else
 		{
 			recipe.addFav(id,function(){gapAlert("Successfully add this to the fav")});
+			$("#btnFav").text("Remove From Fav").button('refresh');
 		}
 	}
 })

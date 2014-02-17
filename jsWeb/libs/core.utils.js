@@ -443,6 +443,7 @@ core.utils.mix=function(origClass,mixer){
 var _MIX=core.utils.mix;
 Namespace.register("core.utils.mixers");
 core.utils.mixers.callbackable={
+    events:{error:function(error){console.error(error)}},
     on:function(eventname,callback)
     {
         if(isNull(this.events))

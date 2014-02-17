@@ -1,97 +1,97 @@
 define(function(require,exports,module){
 	var Maker=function(){};
 	_MIX(Maker,core.utils.mixers.callbackable)
-	Maker.prototype.make = function() {
-		$.mobile.changePage( "../make_cocktails/doMake.html", { role: "dialog"} )
-
-    var seq=new core.sequence.Sequence();
-    var BAROBOTIC_TAG="linvor";
-    var _this=this;
-    var resultText="Done";
-    
-    var clearBluetooth=function(next){
-      
-      setTimeout(function(){
-        bluetoothSerial.clear();
-        bluetoothSerial.unsubscribe();
-        bluetoothSerial.disconnect(function(){
-          console.log("bluetooth device disconnected");
-        },function(error){
-          console.error(error);
-        });
-        $("#progressText").text(resultText);
-        $("#loader").hide();
-        setTimeout(function(){
-          $("#doMakeDialog").dialog("close");
-          _this.trigger("make");
-        },1000);
-
-      },7000)
-    }
-
-
-    if(isNull(context.session.get("barobotic")))
+  Maker.prototype.makeByRecipe=function(recipeDetails,volume)
+  {
+    if(isNull(volume))
     {
-      //find the barobotic device
-      seq.register(
-        function(next){
-          bluetoothSerial.list(function(list){
-            for(var index in list){
-              var item=list[index];
-              if(item.name==BAROBOTIC_TAG){
-                context.session.set("barobotic",item);
-                console.log("Found the barobotic");
-                next();
-                break;
-              }
-            }
-          },function(){
-            gapAlert("The barobotic is out of scope");
-            return;
-          })
-         }
-      )
+      volume=1;
     }
-    
-    seq.register(function(next){
-      var device=context.session.get("barobotic");
-      bluetoothSerial.connect(device.address,function(){
-        console.log("connected to the device");
-        next();
-      },function(error){
-        resultText="no connection";
-        clearBluetooth(next);
-      })
-    })
-    .register(function(next){
-      
-      bluetoothSerial.write("*D=12,,5,5,20,10\r",function(){
-        console.log("data written");
-        next();
-      },function(error){
-        resultText="no access"
-        clearBluetooth(next);
-      });
-    })
-    .register(function(next){
-      bluetoothSerial.subscribe('\n',function(msg){
-        console.log("Get the return from the device "+msg);
-        if(msg!="*DONE"){
-          resultText="Failed";
+    var command="*D=";
+    var sep="";
+    var startFlag=false;
+    for(var recipeIndex in recipeDetails){
+      var recipe=recipeDetails[recipeIndex];
+      if(recipe.quantity<0)
+      {
+        startFlag=false;
+        break;
+      }else if(recipe.quantity>0)
+      {
+        startFlag=true;
+      }
+
+      command+=sep+recipe.quantity*volume;
+      sep=",";
+    }
+    command+="\r";
+    if(startFlag==false)
+    {
+      gapAlert("You can't make drink with all quantity set to 0 or less than 0");
+      return;
+    }
+    this.make(command);
+
+  }
+
+  Maker.prototype.makeByRecipeCode=function(code,volume){
+    var that=this;
+    if(isNull(volume))
+    {
+      volume=1;
+    }
+
+    var sql="select pumperConfig.code as code,quantity from pumperConfig left outer join recipe_drink on recipe_code='"+code+"' and recipe_drink.drink_code=pumperConfig.drink_code order by pumperConfig.code"
+    var dbs=new entity.Base();
+    dbs.on(function(){
+      var recipeDetails=[];
+      for(var index in this.entities)
+      {
+        var recipe={};
+        var entry=this.entities[index];
+        recipe.code=entry.code;
+        recipe.quantity=entry.quantity;
+        if(isNull(recipe.quantity))
+        {
+          recipe.quantity=0;
         }
-        next();
-      },function(error){
-        resultText="Error";
-        console.error(error);
-        next();
-      })
-    })
-    .register(clearBluetooth)
+        recipeDetails.push(recipe);
+      }
+      
+      that.makeByRecipe(recipeDetails,volume);
+    }).listBySql(sql);
+  }
 
-    seq.execute();
+	Maker.prototype.make = function(command) {
+    var _this=this;
+    if(isNull(command))
+    {
+      //this is the sample for testing
+      command="*D=12,7,5,5,20,10\r";
+    }
+    var barobotic=require("js/services/barobotic").barobotic;
+    barobotic.onStarted=function(){
+      $.mobile.changePage( "../make_cocktails/doMake.html", { role: "dialog"} )
+    }
+    barobotic.onFailed=function(error){
+      $("#progressText").text("Failed");
+      $("#loader").hide();
+      setTimeout(function(){
+        $("#doMakeDialog").dialog("close");
+        _this.trigger("make");
+      },1000);
+    }
+    barobotic.onSuccess=function(){
+      $("#progressText").text("Done");
+      $("#loader").hide();
+      setTimeout(function(){
+        $("#doMakeDialog").dialog("close");
+        _this.trigger("make");
+      },1000);
+    }
+    barobotic.run(command);
 
-
-	};
+	}
 
 	Maker.prototype.getRecipe=function(code,callBack){
 		var sql="select * from recipe where code={code}".bind("code",code)
@@ -105,9 +105,7 @@ define(function(require,exports,module){
 	}
 
 	module.exports.Maker=Maker;
-	module.exports.maker=function(){
-		return (new Maker());
-	}
+	module.exports.maker=new Maker()
 	module.exports.make=function(){
 		(new Maker())
 			.on("make",function(){console.log("make cocktails")})
