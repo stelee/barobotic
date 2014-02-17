@@ -7,8 +7,7 @@ module.exports.up=function(onSuccess,onFailed){
 			["3","3"],
 			["4","4"],
 			["5","5"],
-			["6","6"],
-			["7","7"],
+			["6","6"]
 		],[],onSuccess,onFailed);
 }
 module.exports.down=function(onSuccess,onFailed){
