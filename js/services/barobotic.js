@@ -47,16 +47,24 @@ Barobotic.prototype.run=function(command){
 		//register a new device automatically
 		seq.register(function(next){
 			bluetoothSerial.list(function(deviceList){
+			var foundFlag=false;
             for(var index in deviceList){
               var item=deviceList[index];
               if(item.name==that.BAROBOTIC_TAG){
                 context.storage.set("barobotic",item);
                 console.log("Found the barobotic");
-                next();
+                foundFlag=true;
                 break;
               }
             }
-            that.onFailed({error:"The machine is out of scope"});
+            if(foundFlag)
+            {
+            	next();
+            }else
+            {
+            	that.onFailed({error:"The machine is out of scope"});
+            }
+            
           },function(){
             that.onFailed({error:"The machine is out of scope"});
           })
@@ -82,6 +90,15 @@ Barobotic.prototype.run=function(command){
 	      });
     })
     .register(function(next){
+    	setTimeout(function(){
+    		console.log("detecting the deadlock")
+    		if($.mobile.activePage.attr("id")=="doMakeDialog")
+    		{
+    			//deadlock happens
+    			clearBluetooth(next,"No response from the server");
+    		}
+    	},60000);
+    	console.log("subscribe the callback for response from the BT device");
     	bluetoothSerial.subscribe('\r',function(msg){
 		    console.log("Get the return from the device "+msg);
 		    if(msg.indexOf("*DONE")==-1){

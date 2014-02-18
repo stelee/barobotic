@@ -82,6 +82,6 @@ if('undefined'==typeof(bluetoothSerial))
 	bluetoothSerial.subscribe=function(det,any){
 		setTimeout(function(){
 			any("*DONE");
-		},5000)
+		},15000)
 	}
 }
