@@ -4,9 +4,20 @@ define(function(require,exports,module){
     pumperConfig.on("list",function(){
       var listview=new comp.Listview("#pumper_list");
 		  listview.render(this.entities,function(item,$li){
+        var tmp={
+          code:item.code,
+          name:item.name,
+          drink_code:item.drink_code
+
+        };
+        if(isNull(tmp.name))
+        {
+          tmp.name="Unconfigured"
+        }
+  
         var htmlstr="<a href='#' onclick='setPumper()' self-drink='{name}' self-pumperCode='{code}' self-drinkCode='{drink_code}'><h1>Pumper #{code} -- {name}</h1>";
         $li.html(
-          htmlstr.bind(item)
+          htmlstr.bind(tmp)
         );
 		 })
     })

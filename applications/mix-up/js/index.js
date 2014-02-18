@@ -6,7 +6,12 @@ define(function(require,exports,module){
 		pumperConfig.on('list',function(){
 			var listview=new comp.Listview("#pumper_list");
 			listview.render(this.entities,function(item,$li){
-				var $title=$('<h1>Pumper#{code}-{name}</h1>(ml)'.bind(item));
+				var tmp={code:item.code,name:item.name};
+				if(isNull(tmp.name))
+				{
+					tmp.name="Unconfigured"
+				}
+				var $title=$('<h1>Pumper#{code}-{name}</h1>(ml)'.bind(tmp));
 				
 				var $div=$("<div>");
 				$div.append('<input type="number" value="5">');
@@ -81,11 +86,14 @@ define(function(require,exports,module){
 		_loadApp("mix-up","save");
 	}
 	var resetEmptyPumper=function(recipeDetails){
-		$("li[self-drink-code=-1]").find("input").val(0).attr('disabled','disabled');
 		for(var index in recipeDetails){
 			var recipe=recipeDetails[index];
 			$("li[self-drink-code="+recipe.drink_code+"]").find("input").val(recipe.quantity);
 		}
+		setTimeout(function(){
+			$("li[self-drink-code=-1]").find("input").val(0).attr('disabled','disabled');
+		},200);
+
 	}
 	var fillRecipe=function(recipeCode){
 		$("li[self-drink-code]").find("input").val(0)

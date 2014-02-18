@@ -13,6 +13,13 @@ define(function(require,exports,module){
         );
 		 })
     });
+    module.exports.detach=function(){
+      var pumperCode=context.parameter.get("pumperCode");
+      var pumperConfig=require("js/services/pumperConfig").pumperConfig;
+      pumperConfig.on(function(){
+        history.back();
+      }).set(pumperCode,-1);
+    }
     setToPumper=function(){
       var $target=$(event.target);
       if($target.prop('tagName')!='A')
