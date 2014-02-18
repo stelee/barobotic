@@ -28,13 +28,16 @@ define(function(require,exports,module){
 			 })
 		}).list();
 		var recipeCode=context.parameter.fetch("recipeCode");
+
 		if(recipeCode){
 			setTimeout(function(){
 				fillRecipe(recipeCode);
+				$("li[self-drink-code=-1]").find("input").val(0).attr('disabled','disabled');
 			},200);
 		}else{
 			setTimeout(function(){
 				resetEmptyPumper(recipeDetails);
+				$("li[self-drink-code=-1]").find("input").val(0).attr('disabled','disabled');
 			},200);
 		}
 	}
@@ -90,9 +93,6 @@ define(function(require,exports,module){
 			var recipe=recipeDetails[index];
 			$("li[self-drink-code="+recipe.drink_code+"]").find("input").val(recipe.quantity);
 		}
-		setTimeout(function(){
-			$("li[self-drink-code=-1]").find("input").val(0).attr('disabled','disabled');
-		},200);
 
 	}
 	var fillRecipe=function(recipeCode){
