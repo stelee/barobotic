@@ -44,5 +44,6 @@ define(function(require,exports,module){
   }
   module.exports.saveDeviceName=function(input){
     _setDeviceName($(input).val());
+    context.storage.remove("barobotic");//reset the saved device information
   }
 })
