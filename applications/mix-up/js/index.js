@@ -11,7 +11,10 @@ define(function(require,exports,module){
 				{
 					tmp.name="Unconfigured"
 				}
-				var $title=$('<h1>Pumper#{code}-{name}</h1>(ml)'.bind(tmp));
+				var $title=$('<h1></h1>');
+				var $button=$("<button data-icon='gear'  data-theme='a'  onclick='__proxy__(\"addDrink\",this)'>Pump#{code}-{name}(ml)</button>".bind(tmp))
+				$title.append($button);
+				$button.button();
 				
 				var $div=$("<div>");
 				$div.append('<input type="number" value="5">');
@@ -36,10 +39,55 @@ define(function(require,exports,module){
 			},200);
 		}else{
 			setTimeout(function(){
-				resetEmptyPumper(recipeDetails);
+				resetEmptyPump(recipeDetails);
 				$("li[self-drink-code=-1]").find("input").val(0).attr('disabled','disabled');
 			},200);
 		}
+	}
+	module.exports.try=function(){
+		tryRecipe();
+	}
+	module.exports.save=function(){
+		
+		var recipeDetails=buildRecipe();
+		context.session.set('recipeDetails',recipeDetails);
+		if(verifyRecipe(recipeDetails)==false)
+		{
+			gapAlert("You can't save recipe with all quantity set to 0 or less than 0");
+			return;
+		}
+		context.parameter.set('recipeDetails',recipeDetails);
+		_loadApp("mix-up","save");
+	}
+	module.exports.addDrink=function(button){
+		var recipeDetails=[]
+		var pump_length=$("#pumper_list").children().length;
+		var currentIndex=$(button).parents("li").index();
+		$("li[self-drink-code]").each(function(){
+				$this=$(this);
+				var details={};
+				details.drink_code=$this.attr("self-drink-code");
+				if($this.index()==currentIndex)
+				{
+					details.quantity=30;
+				}else
+				{
+					details.quantity=0;
+				}
+				
+				recipeDetails.push(details);
+			}
+		)
+		tryRecipe(recipeDetails);
+
+	}
+	var tryRecipe=function(recipeDetails){
+		if(isNull(recipeDetails))
+			recipeDetails=buildRecipe();
+		context.session.set('recipeDetails',recipeDetails);
+		var volume=$("#inputVolume").val();
+		var maker=require("js/services/cocktailsMaker").maker;
+		maker.makeByRecipe(recipeDetails,volume);
 	}
 	var buildRecipe=function(){
 		var recipeDetails=new Array();
@@ -68,27 +116,8 @@ define(function(require,exports,module){
 	      return retFlag;
 	    }
 	}
-	module.exports.try=function(){
-		
-		var recipeDetails=buildRecipe()
-		context.session.set('recipeDetails',recipeDetails);
-		var volume=$("#inputVolume").val();
-		var maker=require("js/services/cocktailsMaker").maker;
-		maker.makeByRecipe(recipeDetails,volume);
-	}
-	module.exports.save=function(){
-		
-		var recipeDetails=buildRecipe();
-		context.session.set('recipeDetails',recipeDetails);
-		if(verifyRecipe(recipeDetails)==false)
-		{
-			gapAlert("You can't save recipe with all quantity set to 0 or less than 0");
-			return;
-		}
-		context.parameter.set('recipeDetails',recipeDetails);
-		_loadApp("mix-up","save");
-	}
-	var resetEmptyPumper=function(recipeDetails){
+	
+	var resetEmptyPump=function(recipeDetails){
 		for(var index in recipeDetails){
 			var recipe=recipeDetails[index];
 			$("li[self-drink-code="+recipe.drink_code+"]").find("input").val(recipe.quantity);

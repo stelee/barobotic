@@ -7,7 +7,7 @@ define(function(require,exports,module){
     drinkEntity.listAll(function(list){
       var listview=new comp.Listview("#drink_list");
 		  listview.render(list,function(item,$li){
-        var htmlstr="<a href='#' onclick='setToPumper()' self-code='{code}'><h1>{name}</h1><p>{description}</p>";
+        var htmlstr="<a href='#' onclick='setToPump()' self-code='{code}'><h1>{name}</h1><p>{description}</p>";
         $li.html(
           htmlstr.bind(item)
         );
@@ -20,7 +20,7 @@ define(function(require,exports,module){
         history.back();
       }).set(pumperCode,-1);
     }
-    setToPumper=function(){
+    setToPump=function(){
       var $target=$(event.target);
       if($target.prop('tagName')!='A')
       {

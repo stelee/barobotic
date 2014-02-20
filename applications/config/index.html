@@ -6,7 +6,8 @@
 	<div data-role="content">
 		<h1 class="superBig">Configure the device</h1>
         <p>You can set the drink for every pumper and the recipe will be prepared based on your configuration</p>
-
+        <label>Set the name for the device</label>
+        <input id="deviceName" onchange="__proxy__('saveDeviceName',this)"/>
         <ul data-role="listview" id="pumper_list" data-theme="f" data-inset="true">
 
         </ul>

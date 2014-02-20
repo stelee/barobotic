@@ -85,3 +85,15 @@ if('undefined'==typeof(bluetoothSerial))
 		},15000)
 	}
 }
+
+var _getDeviceName=function(){
+	var deviceName=context.storage.get("deviceName");
+	if(deviceName==null)
+	{
+		deviceName="linvor";
+	}
+	return deviceName;
+}
+var _setDeviceName=function(deviceName){
+	context.storage.set("deviceName",deviceName);
+}

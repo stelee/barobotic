@@ -1,5 +1,5 @@
 var Barobotic=function(){
-	this.BAROBOTIC_TAG="linvor";
+	this.BAROBOTIC_TAG=_getDeviceName();
 
 	this.onStarted=function(){
 		console.log("started");

@@ -1,5 +1,8 @@
 define(function(require,exports,module){
   module.exports.onEnter=function(){
+    var deviceName=_getDeviceName();
+    $("#deviceName").val(deviceName);
+
     pumperConfig=require("js/services/pumperConfig").pumperConfig;
     pumperConfig.on("list",function(){
       var listview=new comp.Listview("#pumper_list");
@@ -15,7 +18,7 @@ define(function(require,exports,module){
           tmp.name="Unconfigured"
         }
   
-        var htmlstr="<a href='#' onclick='setPumper()' self-drink='{name}' self-pumperCode='{code}' self-drinkCode='{drink_code}'><h1>Pumper #{code} -- {name}</h1>";
+        var htmlstr="<a href='#' onclick='setPump()' self-drink='{name}' self-pumperCode='{code}' self-drinkCode='{drink_code}'><h1>Pump #{code} -- {name}</h1>";
         $li.html(
           htmlstr.bind(tmp)
         );
@@ -23,7 +26,7 @@ define(function(require,exports,module){
     })
     .list();
   }
-  setPumper=function(pumperCode,drinkCode){
+  setPump=function(pumperCode,drinkCode){
     var $target=$(event.target);
     if($target.prop('tagName')!='A')
     {
@@ -32,11 +35,14 @@ define(function(require,exports,module){
     context.parameter.set("pumperCode",$target.attr("self-pumperCode"));
     context.parameter.set("drinkCode",$target.attr("self-drinkCode"));
     context.parameter.set("drink",$target.attr("self-drink"));
-    _loadApp("config","configPumper");
+    _loadApp("config","configPump");
   }
   module.exports.reset=function(){
     gapConfirm("Are you sure to reset the connection to the device?",function(){
       require("js/services/barobotic").barobotic.resetDevice();
     },function(){})
+  }
+  module.exports.saveDeviceName=function(input){
+    _setDeviceName($(input).val());
   }
 })

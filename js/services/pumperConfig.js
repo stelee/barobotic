@@ -1,8 +1,8 @@
 define(function(require,exports,module){
-  var PumperConfig=function(){}
-  _MIX(PumperConfig,core.utils.mixers.callbackable);
+  var PumpConfig=function(){}
+  _MIX(PumpConfig,core.utils.mixers.callbackable);
 
-  PumperConfig.prototype.list=function(){
+  PumpConfig.prototype.list=function(){
     var that=this;
     var sql="select pumperConfig.code as code,drink_code,name \
     from pumperConfig left outer join drink on pumperConfig.drink_code=drink.code"
@@ -30,7 +30,7 @@ define(function(require,exports,module){
     }).listBySql(sql);
 
   }
-  PumperConfig.prototype.set=function(pumperCode,drinkCode)
+  PumpConfig.prototype.set=function(pumperCode,drinkCode)
   {
     var dbs=new entity.Base("pumperConfig");
     var that=this;
@@ -41,6 +41,6 @@ define(function(require,exports,module){
     },"code="+pumperCode,true);
   }
 
-  module.exports.pumperConfig=new PumperConfig();
+  module.exports.pumperConfig=new PumpConfig();
 
 });

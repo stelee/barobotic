@@ -152,4 +152,19 @@ var afterOnEnter=function(e)
 var beforeOnEnter=function(e){
     
 }
+var __proxy__=function()
+{
+    var func=arguments[0];
+    var that=$.mobile.activePage.controller;
+    if(arguments.length>1){
+        var args=[];
+        for(var index=1; index<arguments.length;index++)
+        {
+            args.push(arguments[index]);
+        }
+        that[func].apply(that,args);
+    }else{
+        that[func].apply(that);
+    }
+}
     
