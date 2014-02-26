@@ -2,6 +2,22 @@ define(function(require,exports,module){
   var PumpConfig=function(){}
   _MIX(PumpConfig,core.utils.mixers.callbackable);
 
+  PumpConfig.prototype.reset=function(pumpNumber){
+    var that=this;
+    var dbo=new entity.Base("pumperConfig");
+    dbo.on(function(){
+      var datas=[];
+      for(var i=0;i<pumpNumber;i++){
+        datas.push([i,-1]);
+      }
+      var dbo2=new entity.Base();
+      dbo2.saveToDB("pumperConfig",["code","drink_code"],
+        datas,[],function(){
+          that.trigger("reset");
+        },function(error){console.error(error)});
+    }).delete("1=1",true);
+  }
+
   PumpConfig.prototype.list=function(){
     var that=this;
     var sql="select pumperConfig.code as code,drink_code,name \

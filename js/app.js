@@ -32,7 +32,12 @@ app.items=[
 		icon:"images/icons/png/Pensils.png"
 	}
 ]
-
+//@Override
+var beforeOnEnter=function(e){
+	if(!isNull(context.interval)){
+		clearInterval(context.interval);
+	}
+}
 //@Override
 var afterOnEnter=function(e){
 
@@ -74,7 +79,10 @@ if('undefined'==typeof(bluetoothSerial))
 	bluetoothSerial.unsubscribe=function(){console.log("bluetoothSerial.unsubscribe")};
 	bluetoothSerial.disconnect=function(any){any();}
 	bluetoothSerial.list=function(any){any([{name:"linvor",address:"12345"}]);}
-	bluetoothSerial.connect=function(address,any){any();}
+	bluetoothSerial.connect=function(address,any,error){
+		any();
+		//error("mockfailed");
+	}
 	bluetoothSerial.write=function(myStr,any){
 		console.log("write the string "+myStr);
 		any();

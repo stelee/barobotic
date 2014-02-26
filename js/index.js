@@ -3,6 +3,17 @@ define(function(require,exports,module){
 	{
 		$.mobile.activePage.css("height","100%")
 		initializeDB();
+		var Barobotic=require("js/services/barobotic").Barobotic;
+		var barobotic=new Barobotic();
+		barobotic.onFailed=function(){
+			$("#info").text("Can't connect to the cocktails maker, \
+				please check your bluetooth settings and turn on the device");
+		}
+		barobotic.onSuccess=function(){
+			$("#info").text("Your cocktails maker is ready");
+		}
+
+		barobotic.checkDevice();
 	}
 	module.exports.make=function(event)
 	{

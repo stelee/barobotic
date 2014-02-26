@@ -1,11 +1,12 @@
 define(function(require,exports,module){
-  module.exports.onEnter=function(){
+  var onEnter=function(){
     var deviceName=_getDeviceName();
     $("#deviceName").val(deviceName);
 
     pumperConfig=require("js/services/pumperConfig").pumperConfig;
     pumperConfig.on("list",function(){
       var listview=new comp.Listview("#pumper_list");
+      $("#pumpNumber").val(this.entities.length);
 		  listview.render(this.entities,function(item,$li){
         var tmp={
           code:item.code,
@@ -26,6 +27,7 @@ define(function(require,exports,module){
     })
     .list();
   }
+  module.exports.onEnter=onEnter;
   setPump=function(pumperCode,drinkCode){
     var $target=$(event.target);
     if($target.prop('tagName')!='A')
@@ -45,5 +47,24 @@ define(function(require,exports,module){
   module.exports.saveDeviceName=function(input){
     _setDeviceName($(input).val());
     context.storage.remove("barobotic");//reset the saved device information
+  }
+  module.exports.resetPump=function(){
+    var pumpNumber=parseInt($("#pumpNumber").val());
+    var currentPumpNumber=$("#pumper_list").children().length;
+    if(currentPumpNumber==pumpNumber){
+      //do nothing
+    }else if(pumpNumber==0){
+      $("#pumpNumber").val(currentPumpNumber)
+    }else
+    {
+      gapConfirm("If you reset the number of the pump, you will reset all the configuration of the pumps",
+        function(){
+          var pumperConfig=require("js/services/pumperConfig").pumperConfig;
+          pumperConfig.on("reset",function(){
+            onEnter();
+          }).reset(pumpNumber);
+        },
+        function(){})
+    }
   }
 })

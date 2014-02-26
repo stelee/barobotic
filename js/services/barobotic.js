@@ -13,6 +13,70 @@ var Barobotic=function(){
 	}
 }
 
+Barobotic.prototype.checkDevice=function(){
+	var that=this;
+	var clearBluetooth=function(next,errorMsg){
+	    bluetoothSerial.clear();
+	    bluetoothSerial.unsubscribe();
+	    bluetoothSerial.disconnect(function(){
+	      console.log("bluetooth device disconnected");
+	      if(isNull(errorMsg)){
+	      	that.onSuccess();
+	      }else
+	      {
+	      	that.onFailed({error:errorMsg});
+	      }
+	     
+	    },function(error){
+	      that.onFailed(error);
+	    });
+
+    }
+    var seq=new core.sequence.Sequence();
+	if(isNull(context.storage.get("barobotic"))){
+		//register a new device automatically
+		seq.register(function(next){
+			bluetoothSerial.list(function(deviceList){
+			var foundFlag=false;
+            for(var index in deviceList){
+              var item=deviceList[index];
+              if(item.name==that.BAROBOTIC_TAG){
+                context.storage.set("barobotic",item);
+                console.log("Found the barobotic");
+                foundFlag=true;
+                break;
+              }
+            }
+            if(foundFlag)
+            {
+            	next();
+            }else
+            {
+            	that.onFailed({error:"The machine is out of scope"});
+            }
+            
+          },function(){
+            that.onFailed({error:"The machine is out of scope"});
+          })
+		})
+	}
+	seq.register(function(next){
+      var device=context.storage.get("barobotic");
+      bluetoothSerial.connect(device.address,function(){
+        console.log("connected to the device");
+        next();
+      },function(error){
+      	console.error(error);
+        clearBluetooth(next,"no connection");
+      })
+    })
+    .register(function(next){
+    	clearBluetooth(next);
+    })
+    .execute();
+
+}
+
 Barobotic.prototype.resetDevice=function(){
 	context.storage.remove("barobotic");
 }
@@ -113,4 +177,5 @@ Barobotic.prototype.run=function(command){
 		  })
     }).execute();
 }
+module.exports.Barobotic=Barobotic;
 module.exports.barobotic=new Barobotic();

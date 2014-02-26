@@ -69,8 +69,13 @@ entity.Base.prototype.listBySql=function(sql,eventName)
 	});
 	return this;
 }
-entity.Base.prototype.listAll=function(){
-	this.listBySql("select * from "+this.tableName,"listAll");
+entity.Base.prototype.listAll=function(limit){
+	var limitString=""
+	if(!isNull(limit))
+	{
+		limitString=" limit "+limit;
+	}
+	this.listBySql("select * from "+this.tableName+limitString,"listAll");
 }
 entity.Base.prototype.createUpdate=function(dataMap,whereStr,dbFlag)
 {
