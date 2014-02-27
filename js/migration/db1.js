@@ -30,7 +30,8 @@ module.exports.up=function(onSuccess,onFailed){
 		(new Table("recipe_drink",[
 			{name:"recipe_code",type:"VARCHAR",constraint:"NOT NULL"},
 			{name:"drink_code",type:"VARCHAR",constraint:"NOT NULL"},
-			{name:"quantity",type:"FLOAT"}
+			{name:"quantity",type:"FLOAT"},
+			{name:"description",type:"VARCHAR"}
 			])).creation_sql()
 	);
 	var db=new DBClient(app.dbConfig);
