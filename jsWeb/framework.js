@@ -95,7 +95,7 @@ var onDeviceReady=function(){
     // __Configuration.devicePlatform=device.platform;
     // __Configuration.deviceUUID=device.uuid;
     // __Configuration.deviceVersion=device.version;
-    document.addEventListener("backbutton",function(){},false);
+    //document.addEventListener("backbutton",function(){},false);
 }
 function onResume() {
    
