@@ -1,7 +1,7 @@
 module.exports.listAll=function(callBack,limit){
   if(isNull(limit))
   {
-    limit=5;
+    limit=50;
   }
   var dbs=new entity.Base("drink");
   dbs.on(function(){

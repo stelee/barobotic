@@ -15,7 +15,7 @@ module.exports.onEnter=function(){
     var pumperCode=context.parameter.get("pumperCode");
     $(".text_pumper").text(pumperCode);
     $(".text_drink").text(context.parameter.fetch("drink"));
-    drinkEntity.listAll(handleList,10);
+    drinkEntity.listAll(handleList,50);
 }
 module.exports.detach=function(){
   var pumperCode=context.parameter.get("pumperCode");

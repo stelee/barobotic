@@ -1,10 +1,18 @@
 <div data-role="page" self-menuIndex="3" class="config_class">
+        <style type="text/css">
+                .ui-listview-inset .ui-li {
+                        width: 200px;
+                        float: left;
+                }
+                .ui-btn-hover-b{
+                        border: 1px solid #1abc9c;
+                }
+        </style>
 	<div data-role="header">
 		<a href="#" data-icon="back" data-role="button" data-rel="back">Back</a>
         <h2>Configure The Pump #<span class="text_pumper">#</span></h2>
 	</div>
 	<div data-role="content">
-        <h1 class="superBig">Configure the pumper </h1>
         <p>Currently you have set <span class="text_drink"></span> for pumper #<span class="text_pumper"></span>. Select another drink from the list to config</p>
         <button self-callback="detach" data-theme="d">Detach The Pump</button>
         <br/>
