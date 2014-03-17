@@ -6,32 +6,32 @@ define(function(require,exports,module){
 		var searchFrom=name+description;
 		if(searchFrom.toLowerCase().indexOf("liquor")>=0)
 		{
-			betterName="Liq";
+			betterName="Lq";
 			foundCount++;
 		}
 		if(searchFrom.toLowerCase().indexOf("vodka")>=0)
 		{
-			betterName="Vod";
+			betterName="Vk";
 			foundCount++;
 		}
 		if(searchFrom.toLowerCase().indexOf("rum")>=0)
 		{
-			betterName="Rum";
+			betterName="Rm";
 			foundCount++;
 		}
 		if(searchFrom.toLowerCase().indexOf("gin")>=0)
 		{
-			betterName="Gin";
+			betterName="Gn";
 			foundCount++;
 		}
 		if(searchFrom.toLowerCase().indexOf("whiskey")>=0)
 		{
-			betterName="Whi";
+			betterName="Ws";
 			foundCount++;
 		}
 		if(searchFrom.toLowerCase().indexOf("tequila")>=0)
 		{
-			betterName="Teq";
+			betterName="Tq";
 			foundCount++;
 		}
 		if(foundCount==1)
@@ -42,6 +42,7 @@ define(function(require,exports,module){
 			return baseName;
 		}
 	}
+	var extraFill=[];
 	module.exports.onEnter=function(){
 		$.mobile.activePage.css("background","#3498DB");
 		var pumperConfig=require("js/services/pumperConfig").pumperConfig;
@@ -212,9 +213,29 @@ define(function(require,exports,module){
 			for(index in rList){
 				var item=rList[index];
 				var weight=item.quantity;
+
 				var $input=$($("li[self-drink-code="+item.drink_code+"]")[0]).find("input");
-				$input.val(weight);
-				$input.vslider('refresh');
+				if($input.length==0){
+					extraFill.push({
+						name:item.name,
+						quantity:item.quantity
+					})
+				}else
+				{
+					$input.val(weight);
+					$input.vslider('refresh');
+				}
+				
+			}
+			if(extraFill.length>0)
+			{
+				var sep="";
+				var output=""
+				extraFill.forEach(function(item){
+					output+=sep+item.name+": "+item.quantity+" ml"
+					sep=", "
+				})
+				$("#extraDesc").text("You also need to add: "+output);
 			}
 			calculateTotal();
 		})
