@@ -2,16 +2,18 @@
 <widget xmlns     = "http://www.w3.org/ns/widgets"
         xmlns:gap = "http://phonegap.com/ns/1.0"
         id        = "io.cordova.hello-cordova"
-        version   = "2.0.0">
-    <name>My App</name>
+        version   = "2.0.0"
+        versionCode ="10">
+    <name>Barobotic</name>
 
     <description>
-        My Application
+        Barobotic
     </description>
 
     <author href="http://cordova.io" email="callback-dev@incubator.apache.org">
-        Apache Cordova Team
+        Leesoft APPDEV team
     </author>
+    <preference name="Orientation" value="landscape" />
 
     <icon src="res/icon/cordova_512.png"        width="512" height="512" />
     <icon src="res/icon/cordova_android_96.png" width="96"  height="96"  gap:platform="android" />
