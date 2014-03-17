@@ -1,7 +1,7 @@
 var handleList=function(list){
   var listview=new comp.Listview("#drink_list");
   listview.render(list,function(item,$li){
-    var htmlstr="<a href='#' onclick='setToPump()' self-code='{code}'><h1>{name}</h1><p>{description}</p>";
+    var htmlstr="<a href='#' onclick='setToPump()' self-code='{code}'><h1>{name}</h1>";
     $li.html(
       htmlstr.bind(item)
     );
@@ -40,11 +40,15 @@ setToPump=function(){
 module.exports.onSearch=function(){
   searchShouldStart=true;
 }
+module.exports.quickSearch=function(evt){
+  $("#searchBox").val($(evt.target).text());
+  searchShouldStart=true;
+}
 context.interval=setInterval(function(){
     if(searchShouldStart==true){
       var searchstr=$("#searchBox").val();
       drinkEntity.search(searchstr,handleList,10);
       searchShouldStart=false;
     }
-},1000)
+},500)
 

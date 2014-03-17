@@ -20,7 +20,7 @@ define(function(require,exports,module){
 
   PumpConfig.prototype.list=function(){
     var that=this;
-    var sql="select pumperConfig.code as code,drink_code,name \
+    var sql="select pumperConfig.code as code,drink_code,name,drink.description description \
     from pumperConfig left outer join drink on pumperConfig.drink_code=drink.code"
 
     var dbs=new entity.Base();

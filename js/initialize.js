@@ -18,7 +18,8 @@
 	setMeta("apple-mobile-web-app-capable","yes");
 	//linkCSS("css/jquery.mobile.flatui.css");
 	linkCSS("css/jqui/jquery-ui-1.10.4.custom.css");
-	linkCSS("css/flatui.theme.css")
+	linkCSS("css/flatui.theme.css");
+	linkCSS("jsWeb/jquery/vslider.css");
 	linkCSS("css/app.css");
 	includeJS("jsWeb/jquery/jquery.js",
 		"cordova.js",
@@ -27,6 +28,7 @@
 		"jsWeb/framework.js",
 		"jsWeb/jquery/jquery-ui-1.10.4.custom.js",
 		"jsWeb/jquery/jquery.mobile-1.3.1.min.js",
+		"jsWeb/jquery/jquery.mobile-1.3.1.vslider.js",
 		"jsWeb/libs/core.utils.js",
 		"jsWeb/libs/core.database.js",
 		"jsWeb/libs/core.file.js",

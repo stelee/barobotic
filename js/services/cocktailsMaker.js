@@ -41,7 +41,7 @@ define(function(require,exports,module){
       volume=1;
     }
 
-    var sql="select pumperConfig.code as code,quantity from pumperConfig left outer join recipe_drink on recipe_code='"+code+"' and recipe_drink.drink_code=pumperConfig.drink_code order by pumperConfig.code"
+    var sql="select pumperConfig.code as code,cast(quantity as integer) as quantity from pumperConfig left outer join recipe_drink on recipe_code='"+code+"' and recipe_drink.drink_code=pumperConfig.drink_code order by pumperConfig.code"
     var dbs=new entity.Base();
     dbs.on(function(){
       var recipeDetails=[];

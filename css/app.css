@@ -221,8 +221,8 @@ div.config_class.ui-page.ui-page-active
 .image_frame
 {
 	background-image: url(../images/cocktails.jpg);
-	width: 60%;
-	height: 60%;
+	width: 45%;
+	height: 45%;
 	background-position: 50% 50%;
 	background-size: cover;
 	border: 5px solid white;

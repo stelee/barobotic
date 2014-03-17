@@ -47,14 +47,16 @@ var afterOnEnter=function(e){
 		var nav=new Navigator.Navigator();
 		nav.setItems(app.items);
 		nav.appendTo($.mobile.activePage);
-
-		setTimeout(function(){
-			//var height=$(document).height()+$.mobile.activePage.children("[data-role=footer]").height();
-    		var height=$(document).height();
-			$.mobile.activePage.children("[data-role=content]").css({
-				height:height+"px"
-			});
-		},200)
+		if($.mobile.activePage.attr("self-force-nocal")!="true"){
+			setTimeout(function(){
+				//var height=$(document).height()+$.mobile.activePage.children("[data-role=footer]").height();
+	    		var height=$(document).height();
+				$.mobile.activePage.children("[data-role=content]").css({
+					height:height+"px"
+				});
+			},200)
+		}
+		
 	}
 
 

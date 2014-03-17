@@ -13,13 +13,18 @@
         <h2>Configure The Pump #<span class="text_pumper">#</span></h2>
 	</div>
 	<div data-role="content">
-        <p>Currently you have set <span class="text_drink"></span> for pumper #<span class="text_pumper"></span>. Select another drink from the list to config</p>
-        <button self-callback="detach" data-theme="d">Detach The Pump</button>
-        <br/>
+        <h2>Quick search:</h2>
+        <button data-inline="true" self-callback="quickSearch">Liquor</button>
+        <button data-inline="true" self-callback="quickSearch">Vodka</button>
+        <button data-inline="true" self-callback="quickSearch">Rum</button>
+        <button data-inline="true" self-callback="quickSearch">Gin</button>
+        <button data-inline="true" self-callback="quickSearch">Whiskey</button>
+        <button data-inline="true" self-callback="quickSearch">Tequila</button>
         <input type="search" id="searchBox" onkeydown="__proxy__('onSearch')"/>
         <ul data-role="listview" id="drink_list" data-theme="b" data-inset="true">
 
         </ul>
-
+        <div style="clear:both"></div>
+        <button self-callback="detach" data-theme="d">Detach The Pump</button>
 	</div>
 </div>

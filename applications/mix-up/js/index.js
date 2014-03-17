@@ -1,4 +1,47 @@
 define(function(require,exports,module){
+	var beautifyName=function(name,description){
+		var baseName=name.substring(0,6);
+		var betterName="";
+		var foundCount=0;
+		var searchFrom=name+description;
+		if(searchFrom.toLowerCase().indexOf("liquor")>=0)
+		{
+			betterName="Liquor";
+			foundCount++;
+		}
+		if(searchFrom.toLowerCase().indexOf("vodka")>=0)
+		{
+			betterName="Vodka";
+			foundCount++;
+		}
+		if(searchFrom.toLowerCase().indexOf("rum")>=0)
+		{
+			betterName="Rum";
+			foundCount++;
+		}
+		if(searchFrom.toLowerCase().indexOf("gin")>=0)
+		{
+			betterName="Gin";
+			foundCount++;
+		}
+		if(searchFrom.toLowerCase().indexOf("whiskey")>=0)
+		{
+			betterName="Whiskey";
+			foundCount++;
+		}
+		if(searchFrom.toLowerCase().indexOf("tequila")>=0)
+		{
+			betterName="Tequila";
+			foundCount++;
+		}
+		if(foundCount==1)
+		{
+			return betterName;
+		}else
+		{
+			return baseName;
+		}
+	}
 	module.exports.onEnter=function(){
 		$.mobile.activePage.css("background","#3498DB");
 		var pumperConfig=require("js/services/pumperConfig").pumperConfig;
@@ -6,19 +49,27 @@ define(function(require,exports,module){
 		pumperConfig.on('list',function(){
 			var listview=new comp.Listview("#pumper_list");
 			listview.render(this.entities,function(item,$li){
-				var tmp={code:item.code,name:item.name};
+				var tmp={code:item.code,name:item.name,description:item.description};
 				if(isNull(tmp.name))
 				{
 					tmp.name="Unconfigured"
+				}else
+				{
+					tmp.name=beautifyName(tmp.name,tmp.description);
 				}
 				var $title=$('<h1></h1>');
-				var $button=$("<button data-icon='gear'  data-theme='a'  onclick='__proxy__(\"addDrink\",this)'>Pump#{code}-{name}(ml)</button>".bind(tmp))
+				var $button=$("<button data-theme='a'  onclick='__proxy__(\"addDrink\",this)'>{name}</button>".bind(tmp))
 				$title.append($button);
 				$button.button();
 				
 				var $div=$("<div>");
-				$div.append('<input type="number" value="5">');
-				$div.find("input").textinput();
+				$input=$('<input type="number" data-type="vslider" min="0" max="45" value="0" data-highlight="true" sliderOrientation="verticalInverted">');
+				$div.append($input);
+				$input.vslider();
+				$input.on( "change", function( event, ui ) {
+					calculateTotal()
+				} );
+
 
 				//I have to fix the bug of slider
 
@@ -27,8 +78,19 @@ define(function(require,exports,module){
 				// 	"class":"ui-input-text ui-body-c ui-corner-all ui-shadow-inset ui-slider-input"
 				// });
 				$li.attr("self-drink-code",item.drink_code);
-			 	$li.append($title).append($div);
-			 })
+			 	$li.append($div).append($title);
+			 });
+
+			var windowWidth=$.mobile.activePage.width();
+			var right=$("#control_pannel").width();
+			var left=windowWidth-right-40;
+
+			var perLineWidth=100/($("#pumper_list").children().length+2);
+
+			$("#pumper_list").children().width(perLineWidth+"%")
+			$("#pumper_list").width(left);
+			$("#inputVolume").vslider();
+
 		}).list();
 		var recipeCode=context.parameter.fetch("recipeCode");
 
@@ -43,6 +105,9 @@ define(function(require,exports,module){
 				$("li[self-drink-code=-1]").find("input").val(0).attr('disabled','disabled');
 			},200);
 		}
+
+		
+
 	}
 	module.exports.try=function(){
 		tryRecipe();
@@ -81,6 +146,20 @@ define(function(require,exports,module){
 		tryRecipe(recipeDetails);
 
 	}
+	module.exports.cancel=function(){
+		history.back();
+	}
+
+	var calculateTotal=function(){
+		var total=0;
+		$("#pumper_list").find("input").each(function()
+			{
+				total+= parseInt($(this).val());
+			});
+		$("#inputVolume").val(total);
+		$("#inputVolume").vslider('refresh');
+	}
+
 	var tryRecipe=function(recipeDetails){
 		if(isNull(recipeDetails))
 			recipeDetails=buildRecipe();
@@ -133,7 +212,9 @@ define(function(require,exports,module){
 				var weight=item.quantity;
 				var $input=$($("li[self-drink-code="+item.drink_code+"]")[0]).find("input");
 				$input.val(weight);
+				$input.vslider('refresh');
 			}
+			calculateTotal();
 		})
 	}
 })

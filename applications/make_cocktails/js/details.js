@@ -22,7 +22,7 @@ define(function(require,exports,module){
 		}).getRecipe(id)
 	}
 	module.exports.make=function(){
-		var volume=$("#inputVolume").val();
+		var volume=1;
 		var recipeCode=context.parameter.get("id");
 
 		var maker=require("js/services/cocktailsMaker").maker;
