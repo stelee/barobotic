@@ -1,17 +1,17 @@
 define(function(require,exports,module){
 	var beautifyName=function(name,description){
-		var baseName=name.substring(0,6);
+		var baseName=name.substring(0,3);
 		var betterName="";
 		var foundCount=0;
 		var searchFrom=name+description;
 		if(searchFrom.toLowerCase().indexOf("liquor")>=0)
 		{
-			betterName="Liquor";
+			betterName="Liq";
 			foundCount++;
 		}
 		if(searchFrom.toLowerCase().indexOf("vodka")>=0)
 		{
-			betterName="Vodka";
+			betterName="Vod";
 			foundCount++;
 		}
 		if(searchFrom.toLowerCase().indexOf("rum")>=0)
@@ -26,12 +26,12 @@ define(function(require,exports,module){
 		}
 		if(searchFrom.toLowerCase().indexOf("whiskey")>=0)
 		{
-			betterName="Whiskey";
+			betterName="Whi";
 			foundCount++;
 		}
 		if(searchFrom.toLowerCase().indexOf("tequila")>=0)
 		{
-			betterName="Tequila";
+			betterName="Teq";
 			foundCount++;
 		}
 		if(foundCount==1)
@@ -52,7 +52,7 @@ define(function(require,exports,module){
 				var tmp={code:item.code,name:item.name,description:item.description};
 				if(isNull(tmp.name))
 				{
-					tmp.name="Unconfigured"
+					tmp.name="U"
 				}else
 				{
 					tmp.name=beautifyName(tmp.name,tmp.description);
@@ -85,7 +85,7 @@ define(function(require,exports,module){
 			var right=$("#control_pannel").width();
 			var left=windowWidth-right-40;
 
-			var perLineWidth=100/($("#pumper_list").children().length+2);
+			var perLineWidth=(100-34)/($("#pumper_list").children().length);
 
 			$("#pumper_list").children().width(perLineWidth+"%")
 			$("#pumper_list").width(left);
@@ -98,11 +98,13 @@ define(function(require,exports,module){
 			setTimeout(function(){
 				fillRecipe(recipeCode);
 				$("li[self-drink-code=-1]").find("input").val(0).attr('disabled','disabled');
+				$("li[self-drink-code=-1]").find("input").vslider('refresh');
 			},200);
 		}else{
 			setTimeout(function(){
 				resetEmptyPump(recipeDetails);
 				$("li[self-drink-code=-1]").find("input").val(0).attr('disabled','disabled');
+				$("li[self-drink-code=-1]").find("input").vslider('refresh');
 			},200);
 		}
 
