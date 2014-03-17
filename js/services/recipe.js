@@ -7,9 +7,7 @@ module.exports.getRecipeList=function(callBack){
 }
 module.exports.getFavRecipeList=function(callBack)
 {
-	var sql="select code,name,description from recipe where is_fav=1 and code not in\
-		(select recipe_code as code from recipe_drink where drink_code not in\
-		 	(select drink_code from pumperConfig))"
+	var sql="select code,name,description from recipe where is_fav=1"
 	getRecipeListBySql(sql, callBack);
 }
 module.exports.addFav=function(code,callBack){
