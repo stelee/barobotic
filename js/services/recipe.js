@@ -1,7 +1,7 @@
 module.exports.getRecipeList=function(callBack){
-	var sql="select code,name,r.description from recipe r \
-	inner  join recipe_drink  rd on r.code=rd.recipe_code \
-	where rd.drink_code in (select drink_code from pumperConfig)"
+	var sql="select code,name,description from recipe where code in ( \
+	select recipe_code as code from recipe_drink  \
+	where drink_code in (select drink_code from pumperConfig))"
 	getRecipeListBySql(sql, callBack);
 	
 }
